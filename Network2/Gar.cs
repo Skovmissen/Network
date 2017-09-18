@@ -54,7 +54,7 @@ namespace ClientServer
 
                 if (_actualWeight == _startWeight)
                 {
-                    Console.WriteLine("done!");
+                    Console.WriteLine("DEN ER FANDME FÆRDIG!");
                     return;
                 }
             }
