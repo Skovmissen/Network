@@ -32,6 +32,7 @@ namespace ClientServer
 
         void Algo()
         {
+           
             int k = rnd.Next(chs.Count);
             Console.WriteLine("k: " + k);
 
