@@ -34,7 +34,7 @@ namespace ClientServer
         {
             Console.WriteLine("chs count: " + chs.Count);
             int k = rnd.Next(chs.Count);
-
+            Console.WriteLine("k: " + k);
 
             Shuffle(chs);
 
