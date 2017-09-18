@@ -22,6 +22,12 @@ namespace ClientServer
             _startWeight = 10 * chs.Count;
             _actualWeight = _startWeight;
             _isinit = isInit;
+
+            if (_isinit)
+            {
+                Console.WriteLine("starting garbage algo...");
+                Algo();
+            }
         }
 
         void Algo()
