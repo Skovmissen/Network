@@ -32,6 +32,7 @@ namespace ClientServer
 
         void Algo()
         {
+            Console.WriteLine("chs count: " + chs.Count);
             int k = rnd.Next(chs.Count);
             Console.WriteLine("k: " + k);
 
@@ -50,9 +51,14 @@ namespace ClientServer
         {
             Console.WriteLine("msg recived: " + msg);
             if (!_isinit && parent == null)
+            {
+                Console.WriteLine("setting parent...");
                 parent = sender;
+            }
             if (_isinit && msg.StartsWith("!garbageinit"))
             {
+                int weight = int.Parse(msg.Split('-')[1]);
+                _actualWeight += weight;
 
                 if (_actualWeight == _startWeight)
                 {
@@ -60,7 +66,14 @@ namespace ClientServer
                     return;
                 }
             }
-            else if (msg.StartsWith("!garbageinit"))
+            else if (_isinit && msg.StartsWith("!garbageStartWeightinit"))
+            {
+                Console.WriteLine("updating start weight... ");
+                int weight = int.Parse(msg.Split('-')[1]);
+                Console.WriteLine("adding " +  weight + " to start weight");
+                _startWeight += weight;
+            }
+            else if (msg.StartsWith("!garbageinit") || msg.StartsWith("!garbageStartWeightinit"))
             {
                 parent.Send(msg);
             }
@@ -70,6 +83,7 @@ namespace ClientServer
                 _actualWeight += weight;
                 Algo();
                 parent.Send("!garbageinit-" + _actualWeight);
+                _actualWeight = 0;
             }
         }
 
@@ -94,7 +108,7 @@ namespace ClientServer
                 _actualWeight += Convert.ToInt32(Math.Pow(k, 2));
                 if (!(_isinit))
                 {
-                    parent.Send("!garbageinit-" + Convert.ToInt32(Math.Pow(k, 2)));
+                    parent.Send("!garbageStartWeightinit-" + Convert.ToInt32(Math.Pow(k, 2)));
                 }
 
             }
