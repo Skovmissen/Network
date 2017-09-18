@@ -36,6 +36,7 @@ namespace ClientServer
             int k = rnd.Next(chs.Count);
             Console.WriteLine("k: " + k);
 
+
             Shuffle(chs);
 
             int weight = getWeight(k);
