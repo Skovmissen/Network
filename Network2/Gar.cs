@@ -33,10 +33,12 @@ namespace ClientServer
         void Algo()
         {
             int k = rnd.Next(chs.Count);
+            Console.WriteLine("k: " + k);
 
             Shuffle(chs);
 
             int weight = getWeight(k);
+            Console.WriteLine("weight: " + weight);
             for (int i = 0; i < k; i++)
             {
                 chs[i].Send("!garbage-" + weight);
@@ -46,7 +48,7 @@ namespace ClientServer
 
         public void Recieve(Channel<string> sender, string msg)
         {
-
+            Console.WriteLine("msg recived: " + msg);
             if (!_isinit && parent == null)
                 parent = sender;
             if (_isinit && msg.StartsWith("!garbageinit"))
@@ -54,7 +56,7 @@ namespace ClientServer
 
                 if (_actualWeight == _startWeight)
                 {
-                    Console.WriteLine("DEN ER FANDME FÆRDIG!");
+                    Console.WriteLine("yehhe!");
                     return;
                 }
             }
