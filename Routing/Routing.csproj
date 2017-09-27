@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetworkFramework\NetworkFramework.csproj">
+      <Project>{9e04efb1-f8c2-4217-8d15-3d6e1bc5d5e8}</Project>
+      <Name>NetworkFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
