@@ -58,9 +58,10 @@ namespace ClientServer
             {
                 Console.WriteLine("recived 2 in round " + _round + " sending...");
                 _round++;
-                Console.WriteLine("new round: " + _round);
                 recived = 0;
-                Console.WriteLine("recived already in new round: " + recived);
+                Console.WriteLine("ROUND DEBUG: " + _round);
+                recived = 0;
+                Console.WriteLine("RECEIVED DEBUG: " + recived);
                 DoRound();
             }
         }
