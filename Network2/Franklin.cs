@@ -12,7 +12,7 @@ namespace ClientServer
         List<Channel<string>> _chs;
         bool _isActive = true;
         bool _isLeader = false;
-        int _id = 300;
+        int _id = 10;
         int _round = 1;
         int recived = 0;
         Dictionary<int, List<int>> roundIds = new Dictionary<int, List<int>>();
@@ -57,6 +57,8 @@ namespace ClientServer
             {
                 Console.WriteLine("recived 2 in round " + _round + " sending...");
                 _round++;
+                Console.WriteLine("new round: " + _round);
+                Console.WriteLine("recived already in new round: " + roundIds[_round].Count);
                 recived = roundIds[_round].Count;
                 DoRound();
             }
@@ -64,6 +66,7 @@ namespace ClientServer
 
         private void DoRound()
         {
+            Console.WriteLine("doround();");
             if (_id < roundIds[_round][0] || _id < roundIds[_round][1])
             {
                 _isActive = false;
