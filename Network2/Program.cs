@@ -148,6 +148,10 @@ namespace ClientServer
                         frank = new Franklin(chs);
                         frank.Recieve(msg, ch);
                     }
+                    else
+                    {
+                        frank.Recieve(msg, ch);
+                    }
                 }
                 Console.WriteLine(msg);
             }

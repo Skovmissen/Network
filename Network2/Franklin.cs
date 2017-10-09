@@ -14,7 +14,7 @@ namespace ClientServer
         bool _isLeader = false;
         int _id = 10;
         int _round = 1;
-        int recived = 2;
+        int recived = 0;
         Dictionary<int, List<int>> roundIds = new Dictionary<int, List<int>>();
 
         public Franklin(List<Channel<string>> chs)
@@ -25,9 +25,13 @@ namespace ClientServer
 
         public void Recieve(string msg, Channel<string> ch)
         {
+            Console.WriteLine("recived: " + msg);
             string[] buffer = msg.Split('-');
             int msgId = int.Parse(buffer[1]);
             int round = int.Parse(buffer[2]);
+
+            Console.WriteLine("msgid: " + msgId);
+            Console.WriteLine("round: " + round);
 
             if (round == _round)
             {
