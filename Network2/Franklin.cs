@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ClientServer
@@ -18,6 +19,8 @@ namespace ClientServer
         int neighone = -1;
         int neightwo = -1;
 
+        SemaphoreSlim sema = new SemaphoreSlim(1); 
+
         public Franklin(List<Channel<string>> chs)
         {
             Console.WriteLine("new franklin");
@@ -27,6 +30,7 @@ namespace ClientServer
 
         public void Recieve(string msg, Channel<string> ch)
         {
+            sema.Wait();
             Console.WriteLine("recived: " + msg);
             string[] buffer = msg.Split('-');
             int msgId = int.Parse(buffer[1]);
@@ -67,6 +71,7 @@ namespace ClientServer
                 Console.WriteLine("RECEIVED DEBUG: " + recived);
                 DoRound();
             }
+            sema.Release();
         }
 
         private void DoRound()
