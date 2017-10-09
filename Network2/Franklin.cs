@@ -12,7 +12,7 @@ namespace ClientServer
         List<Channel<string>> _chs;
         bool _isActive = true;
         bool _isLeader = false;
-        int _id = 10;
+        int _id = 12;
         int _round = 1;
         int recived = 0;
         Dictionary<int, List<int>> roundIds = new Dictionary<int, List<int>>();
