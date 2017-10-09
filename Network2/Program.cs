@@ -41,6 +41,7 @@ namespace ClientServer
             while (true)
             {
                 Channel<string> ch = server.Accept();
+                ch.SetVerbose(false);
                 chs.Add(ch);
                 new Thread(() =>
                 {
