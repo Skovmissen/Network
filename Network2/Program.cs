@@ -155,7 +155,8 @@ namespace ClientServer
                         frank.Recieve(msg, ch);
                     }
                 }
-                Console.WriteLine(msg);
+                else
+                    Console.WriteLine(msg);
             }
         }
 

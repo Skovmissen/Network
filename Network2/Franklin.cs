@@ -19,6 +19,7 @@ namespace ClientServer
 
         public Franklin(List<Channel<string>> chs)
         {
+            Console.WriteLine("new franklin");
             _chs = chs;
             SendMsg(string.Format("!franklin-{0}-{1}", _id, _round));
         }
@@ -58,8 +59,8 @@ namespace ClientServer
                 Console.WriteLine("recived 2 in round " + _round + " sending...");
                 _round++;
                 Console.WriteLine("new round: " + _round);
-                Console.WriteLine("recived already in new round: " + roundIds[_round].Count);
-                recived = roundIds[_round].Count;
+                recived = 0;
+                Console.WriteLine("recived already in new round: " + recived);
                 DoRound();
             }
         }
@@ -81,6 +82,7 @@ namespace ClientServer
 
         void SendMsg(string msg, Channel<string> noSend = null)
         {
+            Console.WriteLine("sending: " + msg);
             foreach (Channel<string> ch in _chs)
             {
                 if (ch != noSend)
