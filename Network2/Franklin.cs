@@ -15,7 +15,8 @@ namespace ClientServer
         int _id = 10;
         int _round = 1;
         int recived = 0;
-        Dictionary<int, List<int>> roundIds = new Dictionary<int, List<int>>();
+        int neighone = -1;
+        int neightwo = -1;
 
         public Franklin(List<Channel<string>> chs)
         {
@@ -37,12 +38,14 @@ namespace ClientServer
             if (round == _round)
             {
                 recived++;
+
+                if (recived == 1)
+                    neighone = msgId;
+                else
+                    neightwo = msgId;
             }
 
-            if (roundIds.ContainsKey(round))
-                roundIds[round].Add(msgId);
-            else
-                roundIds.Add(round, new List<int>(msgId));
+
 
             if (_id == msgId)
             {
@@ -69,7 +72,7 @@ namespace ClientServer
         private void DoRound()
         {
             Console.WriteLine("doround();");
-            if (_id < roundIds[_round][0] || _id < roundIds[_round][1])
+            if (_id <neighone || _id < neightwo)
             {
                 _isActive = false;
                 Console.WriteLine("setting myself to not active...");
