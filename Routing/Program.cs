@@ -21,6 +21,7 @@ namespace ClientServer
         static Channel<string> parent;
         static int EchoCount = 0;
         static bool IsInitializer = false;
+        
         static void Main(string[] args)
         {
             Start();

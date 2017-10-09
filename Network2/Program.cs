@@ -22,6 +22,7 @@ namespace ClientServer
         static int EchoCount = 0;
         static bool IsInitializer = false;
         static Garbage gar;
+        static Franklin frank;
         static void Main(string[] args)
         {
             Start();
@@ -91,6 +92,10 @@ namespace ClientServer
                     {
                         gar = new Garbage(chs, true);
                     }
+                    else if (mess.StartsWith("!franklin"))
+                    {
+                        frank = new Franklin(chs);
+                    }
                     else
                     {
                         SendMsg(mess);
@@ -134,6 +139,14 @@ namespace ClientServer
                     if (EchoCount == chs.Count)
                     {
                         parent.Send(msg);
+                    }
+                }
+                else if (msg.StartsWith("!franklin"))
+                {
+                    if (frank == null)
+                    {
+                        frank = new Franklin(chs);
+                        frank.Recieve(msg, ch);
                     }
                 }
                 Console.WriteLine(msg);
