@@ -30,7 +30,9 @@ namespace ClientServer
             int round = int.Parse(buffer[2]);
 
             if (round == _round)
+            {
                 recived++;
+            }
 
             if (roundIds.ContainsKey(round))
                 roundIds[round].Add(msgId);
@@ -44,10 +46,12 @@ namespace ClientServer
             }
             else if (!_isActive)
             {
+                Console.WriteLine("parsing msg...");
                 SendMsg(msg, ch);
             }
             else if (recived == 2)
             {
+                Console.WriteLine("recived 2 in round " + _round + " sending...");
                 _round++;
                 recived = roundIds[_round].Count;
                 DoRound();
@@ -57,9 +61,15 @@ namespace ClientServer
         private void DoRound()
         {
             if (_id < roundIds[_round][0] || _id < roundIds[_round][1])
+            {
                 _isActive = false;
+                Console.WriteLine("setting myself to not active...");
+            }
             else
+            {
+                Console.WriteLine("sending new round - im the biggest");
                 SendMsg(string.Format("!franklin-{0}-{1}", _id, _round));
+            }
         }
 
         void SendMsg(string msg, Channel<string> noSend = null)
