@@ -4,12 +4,15 @@ using System.Text;
 
 namespace NetworkFramework
 {
-    sealed class TCPStream: Channel<string>
+    sealed class TCPStream : Channel<string>
     {
         private NetworkStream _stream;
+        private bool _verbose;
 
-        public TCPStream(NetworkStream stream) {
+        public TCPStream(NetworkStream stream)
+        {
             _stream = stream;
+            _verbose = true;
         }
 
         public void Send(string msg)
@@ -19,9 +22,11 @@ namespace NetworkFramework
         }
         public void Send(byte[] data)
         {
-            Console.Write("Sending data... ");
+            if (_verbose)
+                Console.Write("Sending data... ");
             _stream.Write(data, 0, data.Length);
-            Console.WriteLine("sent {0} bytes", data.Length);
+            if (_verbose)
+                Console.WriteLine("sent {0} bytes", data.Length);
         }
 
         public string Receive()
@@ -29,16 +34,25 @@ namespace NetworkFramework
             StringBuilder accumulatedMessage = new StringBuilder();
             byte[] buffer = new byte[256];
             int numberOfBytesRead = 0;
-            Console.Write("Waiting for data... ");
+            if (_verbose)
+                Console.Write("Waiting for data... ");
             do
             {
                 numberOfBytesRead = _stream.Read(buffer, 0, buffer.Length);
-                Console.Write("received {0} bytes... ", numberOfBytesRead);
+                if (_verbose)
+                    Console.Write("received {0} bytes... ", numberOfBytesRead);
                 string bufferAsString = Encoding.ASCII.GetString(buffer, 0, numberOfBytesRead);
                 accumulatedMessage.AppendFormat("{0}", bufferAsString);
             } while (_stream.DataAvailable);
-            Console.WriteLine("done");
+            if (_verbose)
+                Console.WriteLine("done");
             return accumulatedMessage.ToString();
         }
+
+        public void SetVerbose(bool val)
+        {
+            _verbose = val;
+        }
+
     }
 }

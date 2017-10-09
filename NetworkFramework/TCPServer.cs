@@ -10,6 +10,7 @@ namespace NetworkFramework
 
         public TCPServer()
         {
+            Console.WriteLine("Local ip: " + GetLocalIPAddress());
             Console.Write("Listen on port: ");
             int port = int.Parse(Console.ReadLine());
             Console.Write("Initializing server... ");
@@ -22,12 +23,26 @@ namespace NetworkFramework
 
         public Channel<string> Accept()
         {
-            Console.WriteLine("Waiting for client... ");
+            Console.Write("Waiting for client... ");
             TcpClient client = server.AcceptTcpClient();
             Console.WriteLine("connected!");
             NetworkStream stream = client.GetStream();
             return new TCPStream(stream);
         }
-        
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
+        }
+
+
     }
 }
