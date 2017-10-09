@@ -69,6 +69,7 @@ namespace ClientServer
                     if (mess == "connect")
                     {
                         TCPClient ch = new TCPClient();
+                        ch.SetVerbose(false);
                         chs.Add(ch);
 
                         new Thread(() =>
